@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: yes
+
+  tasks:
+    - name: Run cadvisor container
+      docker_container:
+        name: cadvisor
+        image: gcr.io/cadvisor/cadvisor
+        state: started
+        ports:
+          - "9323:8080"
+        volumes:
+          - /:/rootfs:ro
+          - /var/run:/var/run:rw
+          - /sys/fs/cgroup:/sys/fs/cgroup:ro
+          - /var/lib/docker/:/var/lib/docker:ro
+        command: --docker_only=true
+        restart_policy: always

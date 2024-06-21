@@ -1,0 +1,21 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "Docker Containers",
+    "timezone": "browser",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "CPU Usage",
+        "targets": [
+          {
+            "expr": "sum(rate(container_cpu_usage_seconds_total{container_label_com_docker_swarm_task_name!=\"\"}[5m])) by (container_label_com_docker_swarm_task_name)",
+            "legendFormat": "{{container_label_com_docker_swarm_task_name}}",
+            "refId": "A"
+          }
+        ]
+      }
+    ]
+  },
+  "overwrite": true
+}
